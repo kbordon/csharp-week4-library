@@ -82,7 +82,6 @@ namespace Library.Tests
       author2.Save();
       newBook.AddAuthor(author1);
       newBook.AddAuthor(author2);
-      Console.WriteLine(newBook.GetId());
 
       Assert.AreEqual(2, newBook.GetAllAuthors().Count);
 

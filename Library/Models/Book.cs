@@ -100,7 +100,6 @@ namespace Library.Models
       var rdr = getAllAuthors.Read();
       while (rdr.Read())
       {
-        Console.WriteLine("AAHHHHHHHHHHHH?");
         int id = rdr.GetInt32(0);
         string title = rdr.GetName(1);
         Author bookAuthor = new Author(title, id);

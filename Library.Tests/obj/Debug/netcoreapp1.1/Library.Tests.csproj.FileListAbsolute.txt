@@ -11,3 +11,16 @@
 /Users/Guest/Desktop/Library.Solution/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.AssemblyInfo.cs
 /Users/Guest/Desktop/Library.Solution/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.dll
 /Users/Guest/Desktop/Library.Solution/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.pdb
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.Tests.deps.json
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.Tests.runtimeconfig.json
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.Tests.runtimeconfig.dev.json
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.Tests.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.Tests.pdb
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/bin/Debug/netcoreapp1.1/Library.pdb
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.AssemblyInfo.cs
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.dll
+/Users/Guest/Desktop/csharp-week4-library/Library.Tests/obj/Debug/netcoreapp1.1/Library.Tests.pdb

@@ -6,3 +6,11 @@
 /Users/Guest/Desktop/Library.Solution/Library/bin/Debug/netcoreapp1.1/Library.pdb
 /Users/Guest/Desktop/Library.Solution/Library/obj/Debug/netcoreapp1.1/Library.dll
 /Users/Guest/Desktop/Library.Solution/Library/obj/Debug/netcoreapp1.1/Library.pdb
+/Users/Guest/Desktop/csharp-week4-library/Library/bin/Debug/netcoreapp1.1/Library.deps.json
+/Users/Guest/Desktop/csharp-week4-library/Library/bin/Debug/netcoreapp1.1/Library.runtimeconfig.json
+/Users/Guest/Desktop/csharp-week4-library/Library/bin/Debug/netcoreapp1.1/Library.runtimeconfig.dev.json
+/Users/Guest/Desktop/csharp-week4-library/Library/bin/Debug/netcoreapp1.1/Library.dll
+/Users/Guest/Desktop/csharp-week4-library/Library/bin/Debug/netcoreapp1.1/Library.pdb
+/Users/Guest/Desktop/csharp-week4-library/Library/obj/Debug/netcoreapp1.1/Library.AssemblyInfo.cs
+/Users/Guest/Desktop/csharp-week4-library/Library/obj/Debug/netcoreapp1.1/Library.dll
+/Users/Guest/Desktop/csharp-week4-library/Library/obj/Debug/netcoreapp1.1/Library.pdb
