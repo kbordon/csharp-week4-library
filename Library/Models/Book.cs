@@ -13,6 +13,10 @@ namespace Library.Models
     public void SetTitle(string title) {_title = title;}
     public string GetTitle() {return _title;}
 
+		private int _copyId;
+    public void SetCopyId(int copyId) {_copyId = copyId;}
+    public int GetCopyId() {return _copyId;}
+
     public Book(string title, int id = 0)
     {
       SetTitle(title);
@@ -106,7 +110,12 @@ namespace Library.Models
     public List<Author> GetAllAuthors()
     {
       List<Author> bookAuthors = new List<Author>{};
-      Query getAllAuthors = new Query("SELECT authors.* FROM authors_books JOIN authors ON authors_books.author_id = authors.author_id WHERE book_id = @BookId");
+      Query getAllAuthors = new Query(@"
+				SELECT authors.* FROM authors_books
+					JOIN authors
+					ON authors_books.author_id = authors.author_id
+				WHERE book_id = @BookId
+			");
 
       getAllAuthors.AddParameter("@BookId", GetId().ToString());
       var rdr = getAllAuthors.Read();

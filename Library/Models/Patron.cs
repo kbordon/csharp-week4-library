@@ -79,7 +79,7 @@ namespace Library.Models
 
     public static void ClearAll()
     {
-      Query deletePatron = new Query("DELETE FROM patrons; Delete FROM checkouts");
+      Query deletePatron = new Query("DELETE FROM patrons; DELETE FROM checkouts; DELETE FROM history");
       deletePatron.Execute();
     }
 
@@ -110,7 +110,7 @@ namespace Library.Models
     public List<Book> GetCheckouts()
     {
       Query checkouts = new Query(@"
-        SELECT books.*, checkouts.check_out, checkouts.due_date FROM checkouts
+        SELECT books.*, copies.copy_id, checkouts.check_out, checkouts.due_date FROM checkouts
           JOIN (copies, books)
           ON copies.copy_id = checkouts.copy_id
         WHERE patron_id = @Id
@@ -122,10 +122,47 @@ namespace Library.Models
       {
         string name = rdr.GetString(1);
         int id = rdr.GetInt32(0);
+        int copyId = rdr.GetInt32(2);
         Book checkedOut = new Book(name, id);
+        checkedOut.SetCopyId(copyId);
+
         checkedOutBooks.Add(checkedOut);
       }
       return checkedOutBooks;
+    }
+
+    public void CheckIn(int copyId)
+    {
+
+      Query getCheckoutDate = new Query(@"
+        SELECT checkouts.check_out, books.book_id FROM copies
+          JOIN(checkouts, books)
+          ON copies.book_id = books.book_id
+        WHERE copies.copy_id = @CopyId
+      ");
+      getCheckoutDate.AddParameter("@CopyId", copyId.ToString());
+      string checkOutDate = "";
+      int bookId = 0;
+      var checkOutDateRdr = getCheckoutDate.Read();
+      while (checkOutDateRdr.Read())
+      {
+        checkOutDate = checkOutDateRdr.GetDateTime(0).ToString("yyyy-MM-dd HH:mm:ss");
+        bookId = checkOutDateRdr.GetInt32(1);
+      }
+
+      DateTime now = DateTime.Now;
+      string nowSql = now.ToString("yyyy-MM-dd HH:mm:ss");
+
+      Query ClearCheckout = new Query(@"
+        INSERT INTO history VALUES(@PatronId, @BookId, @CheckOutDate, @CheckInDate);
+        DELETE FROM checkouts WHERE copy_id = @CopyId
+      ");
+      ClearCheckout.AddParameter("@PatronId", GetId().ToString());
+      ClearCheckout.AddParameter("@CopyId", copyId.ToString());
+      ClearCheckout.AddParameter("@BookId", bookId.ToString());
+      ClearCheckout.AddParameter("@CheckOutDate", checkOutDate);
+      ClearCheckout.AddParameter("@CheckInDate", nowSql);
+      ClearCheckout.Execute();
     }
   }
 }
