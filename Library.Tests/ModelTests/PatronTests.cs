@@ -114,5 +114,25 @@ namespace Library.Tests
 
       Assert.AreEqual(0, PostCheckOuts.Count);
     }
+
+    [TestMethod]
+    public void GetHistory_GetHistoryOfPatron_True()
+    {
+      Patron newPatron = new Patron("Veronica Faelon");
+      newPatron.Save();
+
+      Book book1 = new Book("Goosebumps");
+      book1.Save();
+      book1.addCopy(2);
+
+      bool canCheckout = newPatron.AddCheckOut(book1.GetId());
+      List<Book> preCheckOuts = newPatron.GetCheckouts();
+
+      newPatron.CheckIn(preCheckOuts[0].GetCopyId());
+
+      List<Book> history = newPatron.GetHistory();
+
+      Assert.AreEqual(book1, history[0]);
+    }
   }
 }

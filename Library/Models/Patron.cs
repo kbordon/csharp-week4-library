@@ -164,5 +164,27 @@ namespace Library.Models
       ClearCheckout.AddParameter("@CheckInDate", nowSql);
       ClearCheckout.Execute();
     }
+
+    public List<Book> GetHistory()
+    {
+      List<Book> history = new List<Book>{};
+      Query getHistory = new Query(@"
+        SELECT history.*, books.title FROM history
+          JOIN (books)
+          ON history.book_id = books.book_id
+        WHERE patron_id = @PatronId
+      ");
+      getHistory.AddParameter("@PatronId", GetId().ToString());
+      var rdr = getHistory.Read();
+      while (rdr.Read())
+      {
+        string name = rdr.GetString(4);
+        int id = rdr.GetInt32(1);
+
+        Book pastBook = new Book(name, id);
+        history.Add(pastBook);
+      }
+      return history;
+    }
   }
 }
