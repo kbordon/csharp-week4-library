@@ -80,6 +80,18 @@ namespace Library.Models
       deleteBook.Execute();
     }
 
+		public void addCopy(int amt = 1)
+		{
+			string queryCommand = "";
+			for (int i = 1; i <= amt; i++) {
+				queryCommand = queryCommand + "INSERT INTO copies (book_id) VALUES (@BookId);";
+			}
+
+			Query addCopy = new Query(queryCommand);
+			addCopy.AddParameter("@BookId", GetId().ToString());
+			addCopy.Execute();
+		}
+
     public void AddAuthor(Author author)
     {
       Query addAuthor = new Query(@"
@@ -108,5 +120,23 @@ namespace Library.Models
       return bookAuthors;
     }
 
+		public int GetAvailable()
+		{
+			Query freeCopy = new Query(@"
+			SELECT copies.* FROM copies
+				LEFT OUTER JOIN (checkouts)
+				ON checkouts.copy_id = copies.copy_id
+			WHERE checkouts.copy_id IS NULL AND copies.book_id = @BookId LIMIT 1;
+			");
+			freeCopy.AddParameter("@BookId", GetId().ToString());
+
+			int copyId = 0;
+			var rdr = freeCopy.Read();
+			while(rdr.Read())
+			{
+				copyId = rdr.GetInt32(0);
+			}
+			return copyId;
+		}
   }
 }

@@ -79,8 +79,17 @@ namespace Library.Tests
 
       Book book1 = new Book("Goosebumps");
       book1.Save();
+      book1.addCopy(2);
 
-      newPatron.AddCheckOut(book1.GetId());
+      bool canCheckout = newPatron.AddCheckOut(book1.GetId());
+      if (canCheckout)
+      {
+        Console.WriteLine("Available Book");
+      }
+      else
+      {
+        Console.WriteLine("No Available book");
+      }
 
       List<Book> checkouts = newPatron.GetCheckouts();
       Assert.AreEqual(1, checkouts.Count);

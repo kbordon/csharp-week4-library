@@ -83,22 +83,38 @@ namespace Library.Models
       deletePatron.Execute();
     }
 
-    public void AddCheckOut(int bookId, double days = 7)
+    public bool AddCheckOut(int bookId, double days = 7)
     {
-      Query patronCheckout = new Query("INSERT INTO checkouts VALUES(@PatronId, @BookId, @CheckoutDate, @DueDate)");
+
+      Book requested = Book.Find(bookId);
+      int freeCopy = requested.GetAvailable();
+
+      if (freeCopy < 1)
+      {
+        return false;
+      }
+
+      Query patronCheckout = new Query("INSERT INTO checkouts VALUES(@PatronId, @CopyId, @CheckoutDate, @DueDate)");
       patronCheckout.AddParameter("@PatronId", GetId().ToString());
-      patronCheckout.AddParameter("@BookId", bookId.ToString());
+      patronCheckout.AddParameter("@CopyId", freeCopy.ToString());
 
       DateTime currentDate = DateTime.Now;
       patronCheckout.AddParameter("@CheckoutDate", currentDate.ToString("yyyy-MM-dd HH:mm:ss"));
       DateTime dueDate = currentDate.AddDays(days);
       patronCheckout.AddParameter("@DueDate", dueDate.ToString("yyyy-MM-dd HH:mm:ss"));
       patronCheckout.Execute();
+
+      return true;
     }
 
     public List<Book> GetCheckouts()
     {
-      Query checkouts = new Query("SELECT books.* FROM checkouts JOIN(books) ON checkouts.book_id = books.book_id WHERE patron_id = @Id");
+      Query checkouts = new Query(@"
+        SELECT books.*, checkouts.check_out, checkouts.due_date FROM checkouts
+          JOIN (copies, books)
+          ON copies.copy_id = checkouts.copy_id
+        WHERE patron_id = @Id
+      ");
       checkouts.AddParameter("@Id", GetId().ToString());
       var rdr = checkouts.Read();
       List<Book> checkedOutBooks = new List<Book> {};
